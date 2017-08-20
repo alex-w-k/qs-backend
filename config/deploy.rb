@@ -1,7 +1,7 @@
 # config valid only for current version of Capistrano
 lock "3.9.0"
 
-server '104.197.250.20', user: 'deploy', port: 22, roles: %w{web app db}
+server '35.184.24.18', user: 'deploy', port: 22, roles: %w{web app db}
 set :application, "qs-backend"
 set :repo_url, "git@github.com:alex-w-k/qs-backend.git"
 set :use_sudo, true
@@ -58,11 +58,13 @@ namespace :db do
   desc 'Reset postgres db'
   task :reset do
     on primary :db do
+     invoke 'puma:stop' 
       within current_path do
         with rails_env: fetch(:stage) do
           execute :rake, 'db:reset DISABLE_DATABASE_ENVIRONMENT_CHECK=1'
         end
       end
+      invoke 'puma:start'
     end
     invoke 'puma:start'
   end
