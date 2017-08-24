@@ -31,7 +31,7 @@ class Api::V1::MealsController < ApplicationController
       meal_food = MealFood.find_by(meal: @meal, food: @food)
       meal_food.destroy
 
-      render json: { message: "Successfully removed #{@food.name} from #{@meal.name}", food: @food.id, meal: @meal.id}, status: 200
+      render json: { message: "Successfully removed #{@food.name} from #{@meal.name}", food: @food.id, meal: @meal.name}, status: 200
     else
       render json: { message: "Cannot find requested meal and/or food to delete" }, status: 404
     end
