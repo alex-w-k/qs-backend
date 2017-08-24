@@ -20,7 +20,7 @@ class Api::V1::MealsController < ApplicationController
     if food_and_meal_exist?
       @meal.foods << @food
 
-      render json: { message: "Successfully added #{@food.name} to #{@meal.name}", food: @food.id, meal: @meal.id}, status: 201
+      render json: { message: "Successfully added #{@food.name} to #{@meal.name}", food: @food.id, meal: @meal.id, mealname: @meal.name}, status: 201
     else
       render json: { message: "Cannot find requested meal and/or food to add food to specified meal" }, status: 404
     end
